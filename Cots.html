@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COTS 1 ProWeb</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    font-size: 12px;
+}
+
+/* HEADER */
+.header {
+    height: 35px;
+    background: #dedede;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+    border-bottom: 1px solid #ccc;
+}
+
+.header h2 {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.header span {
+    font-size: 10px;
+}
+
+/* TOOLBAR */
+.toolbar {
+    height: 32px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 12px;
+}
+
+.toolbar-left {
+    display: flex;
+    gap: 5px;
+}
+
+button {
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+}
+
+.toolbar button {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    color: #555;
+    padding: 4px 8px;
+    font-size: 10px;
+}
+
+.search {
+    display: flex;
+    height: 21px;
+}
+
+.search input {
+    width: 160px;
+    padding: 4px 7px;
+    border: 1px solid #ddd;
+    font-size: 10px;
+}
+
+.search button {
+    width: 25px;
+    padding: 2px;
+}
+
+/* MAIN LAYOUT */
+.layout {
+    display: flex;
+    min-height: calc(100vh - 67px);
+    background: #fff;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 33%;
+    max-width: 300px;
+    flex-shrink: 0;
+    border-right: 3px solid #ccc;
+    background: #f5f5f5;
+}
+
+.sidebar-title {
+    height: 23px;
+    background: #343a40;
+    color: #fff;
+    padding: 6px 10px;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.letter {
+    background: white;
+    margin: 3px 3px 5px;
+    padding: 7px 6px;
+    border-left: 3px solid #343a40;
+    border-radius: 2px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.mail-icon {
+    font-size: 14px;
+    color: #555;
+    flex-shrink: 0;
+    padding-top: 1px;
+}
+
+.letter-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.letter-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.sender {
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.date {
+    flex-shrink: 0;
+    text-align: right;
+    font-size: 9px;
+    line-height: 1.4;
+    color: #777;
+}
+
+.subject {
+    font-size: 10px;
+    line-height: 1.4;
+    margin-top: 3px;
+    overflow-wrap: anywhere;
+}
+
+/* DASHBOARD */
+.main {
+    flex: 1;
+    min-width: 0;
+    background: #fff;
+}
+
+.dashboard-tab {
+    height: 25px;
+    background: #f1f1f1;
+    border-bottom: 3px solid #e67e22;
+}
+
+.dashboard-tab span {
+    display: inline-block;
+    height: 22px;
+    padding: 6px 14px;
+    background: #e67e22;
+    color: white;
+    font-weight: bold;
+}
+
+.create-buttons {
+    min-height: 33px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.create-buttons button {
+    padding: 5px 7px;
+    font-size: 9px;
+    color: #444;
+    background: #fff;
+    border: 1px solid #eee;
+    white-space: nowrap;
+}
+
+/* CARDS */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+    padding: 8px;
+}
+
+.card {
+    min-width: 0;
+    color: white;
+}
+
+.card-body {
+    height: 76px;
+    padding: 9px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 3px;
+}
+
+.green {
+    background: #27ae60;
+}
+
+.blue {
+    background: #20a9c2;
+}
+
+.red {
+    background: #ed515b;
+}
+
+.card-icon {
+    font-size: 28px;
+    line-height: 1;
+    margin-top: 4px;
+}
+
+.card-info {
+    text-align: right;
+    min-width: 0;
+}
+
+.card-info h2 {
+    font-size: 22px;
+    font-weight: normal;
+    line-height: 1;
+    margin-bottom: 7px;
+}
+
+.card-info p {
+    font-size: 9px;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.card-footer {
+    height: 23px;
+    padding: 5px 7px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,.88);
+    font-size: 9px;
+}
+
+.green .card-footer {
+    color: #27ae60;
+}
+
+.blue .card-footer {
+    color: #20a9c2;
+}
+
+.red .card-footer {
+    color: #ed515b;
+}
+
+.card-footer span:last-child {
+    font-size: 12px;
+}
+
+/* TODO */
+.todo {
+    margin: 5px 8px 0;
+    padding: 9px;
+    background: #7952b3;
+}
+
+.todo h3 {
+    color: white;
+    font-size: 11px;
+    font-weight: normal;
+    margin-bottom: 7px;
+}
+
+.todo-search {
+    height: 25px;
+    display: flex;
+    background: white;
+    border: 1px solid #ddd;
+}
+
+.todo-search input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    padding: 5px 8px;
+    font-size: 9px;
+}
+
+.todo-search span {
+    padding: 5px 8px;
+    color: #555;
+    font-size: 12px;
+}
+
+.todo-empty {
+    margin: 0 8px;
+    background: white;
+    padding: 9px;
+    text-align: center;
+    font-size: 9px;
+    font-style: italic;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .header {
+        padding: 0 8px;
+    }
+
+    .header h2 {
+        font-size: 12px;
+    }
+
+    .header span {
+        font-size: 8px;
+    }
+
+    .toolbar {
+        padding: 4px 6px;
+        gap: 5px;
+    }
+
+    .search input {
+        width: 90px;
+    }
+
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        max-width: none;
+        border-right: none;
+        border-bottom: 3px solid #ccc;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .create-buttons {
+        flex-wrap: wrap;
+    }
+
+    .cards {
+        gap: 5px;
+        padding: 5px;
+    }
+
+    .card-body {
+        padding: 7px 4px;
+        height: 75px;
+    }
+
+    .card-icon {
+        font-size: 20px;
+    }
+
+    .card-info h2 {
+        font-size: 18px;
+    }
+
+    .card-info p {
+        font-size: 8px;
+    }
+
+    .card-footer {
+        padding: 4px;
+        font-size: 8px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <h2>COTS 1 ProWeb</h2>
+    <span>Hi, 103092400033 - Rakan Syawal Zulfian</span>
+</header>
+
+<!-- TOOLBAR -->
+<nav class="toolbar">
+    <div class="toolbar-left">
+        <button>▣ Incoming Letter</button>
+        <button>▣ My Folder</button>
+    </div>
+
+    <div class="search">
+        <input type="text" placeholder="Search ...">
+        <button aria-label="Search">⌕</button>
+    </div>
+</nav>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-title">Incoming Letter</div>
+
+        <div class="letter">
+            <div class="mail-icon">✉</div>
+            <div class="letter-content">
+                <div class="letter-heading">
+                    <div class="sender">
+                        Direktorat Pusat Teknologi Informasi TELKOM
+                        University
+                    </div>
+                    <div class="date">14 Oct<br>09:44</div>
+                </div>
+                <p class="subject">
+                    Universitas Teknologi untuk Permohonan Perubahan Dosen Wali
+                </p>
+            </div>
+        </div>
+
+        <div class="letter">
+            <div class="mail-icon">✉</div>
+            <div class="letter-content">
+                <div class="letter-heading">
+                    <div class="sender">
+                        Kepala Bagian Administrasi Internasional Telkom University
+                    </div>
+                    <div class="date">14 Oct<br>11:20</div>
+                </div>
+                <p class="subject">
+                    Undangan Kegiatan Internasional Registrasi Mahasiswa Asing
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN DASHBOARD -->
+    <main class="main">
+
+        <div class="dashboard-tab">
+            <span>Dashboard</span>
+        </div>
+
+        <div class="create-buttons">
+            <button>▣ Create Internal Letter</button>
+            <button>▣ Create External Letter</button>
+            <button>▣ Create Invitational Letter</button>
+        </div>
+
+        <!-- SUMMARY CARDS -->
+        <section class="cards">
+
+            <div class="card green">
+                <div class="card-body">
+                    <div class="card-icon">▰</div>
+                    <div class="card-info">
+                        <h2>0</h2>
+                        <p>Need Follow Up</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span>View Details</span>
+                    <span>⊙</span>
+                </div>
+            </div>
+
+            <div class="card blue">
+                <div class="card-body">
+                    <div class="card-icon">▤</div>
+                    <div class="card-info">
+                        <h2>0</h2>
+                        <p>Incoming Letter</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span>View Details</span>
+                    <span>⊙</span>
+                </div>
+            </div>
+
+            <div class="card red">
+                <div class="card-body">
+                    <div class="card-icon">☏</div>
+                    <div class="card-info">
+                        <h2>0</h2>
+                        <p>Disposition</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span>View Details</span>
+                    <span>⊙</span>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- TODO PANEL -->
+        <section class="todo">
+            <h3>Todo</h3>
+            <div class="todo-search">
+                <input type="text" placeholder="Search todo...">
+                <span>⌕</span>
+            </div>
+        </section>
+
+        <div class="todo-empty">
+            You don't have ToDo
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>
